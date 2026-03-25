@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  ml-app:
+    build: .
+    ports:
+      - "8000:8000"
+    networks:
+      - ml-network
+    depends_on:
+      - redis-db
+
+  redis-db:
+    image: redis:alpine
+    networks:
+      - ml-network
+
+networks:
+  ml-network:
+    driver: bridge
