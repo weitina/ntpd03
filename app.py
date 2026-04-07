@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+import os
 from sklearn.linear_model import LogisticRegression
 import numpy as np
 import uvicorn
@@ -39,3 +40,8 @@ def get_info():
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
+
+@app.get("/secret")
+def get_database_info():
+    db_name = os.getenv("database", "Nie znaleziono zmiennej!")
+    return {"nazwa_bazy_z_render": db_name}
